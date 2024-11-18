@@ -19,7 +19,7 @@ contract LockupStreamCreatorTest is Test {
         // Fork Ethereum Mainnet
         vm.createSelectFork({ blockNumber: 6_239_031, urlOrAlias: "sepolia" });
 
-        // Load the lockup linear contract from Ethereum Mainnet
+        // Load the lockup linear contract from Ethereum Sepolia
         lockup = ISablierV2LockupLinear(LOCKUP_LINEAR_ADDRESS);
 
         // Deploy the stream creator contract
@@ -39,10 +39,11 @@ contract LockupStreamCreatorTest is Test {
         creator.DAI().approve({ spender: address(creator), value: 1337e18 });
     }
 
-    // Test that creating linear stream works by checking the stream ids
     function test_CreateLockupLinearStream() public {
         uint256 expectedStreamId = lockup.nextStreamId();
         uint256 actualStreamId = creator.createLockupLinearStream(1337e18);
+
+        // Check that creating linear stream works by checking the stream id
         assertEq(actualStreamId, expectedStreamId);
     }
 }
