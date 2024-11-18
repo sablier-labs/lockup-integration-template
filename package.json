@@ -1,13 +1,13 @@
 {
-  "name": "sablier-integration-template",
-  "description": "Template for making on-chain integrations with Sablier V2",
+  "name": "lockup-integration-template",
+  "description": "Template for making on-chain integrations with Sablier Lockup V2",
   "version": "1.0.0",
   "author": {
     "name": "Sablier Labs Ltd",
     "url": "https://sablier.com"
   },
   "bugs": {
-    "url": "https://github.com/sablier-labs/sablier-integration-template/issues"
+    "url": "https://github.com/sablier-labs/lockup-integration-template/issues"
   },
   "dependencies": {
     "@openzeppelin/contracts": "5.0.2",
@@ -20,7 +20,7 @@
     "prettier": "^2.8.8",
     "solhint": "^4.0.0"
   },
-  "homepage": "https://github.com/sablier-labs/sablier-integration-template#readme",
+  "homepage": "https://github.com/sablier-labs/lockup-integration-template#readme",
   "keywords": [
     "asset-streaming",
     "blockchain",
@@ -38,7 +38,7 @@
   ],
   "license": "GPL-3.0-or-later",
   "private": true,
-  "repository": "github.com:sablier-labs/sablier-integration-template",
+  "repository": "github.com:sablier-labs/lockup-integration-template",
   "scripts": {
     "clean": "rm -rf cache out",
     "lint": "bun run lint:sol && bun run prettier:check",

@@ -4,26 +4,26 @@ pragma solidity >=0.8.22;
 import { Test } from "forge-std/src/Test.sol";
 import { ISablierV2LockupLinear } from "@sablier/v2-core/src/interfaces/ISablierV2LockupLinear.sol";
 
-import { StreamCreator } from "../src/StreamCreator.sol";
+import { LockupStreamCreator } from "../src/LockupStreamCreator.sol";
 
-contract StreamCreatorTest is Test {
+contract LockupStreamCreatorTest is Test {
     // Get the latest deployment address from the docs: https://docs.sablier.com/contracts/v2/deployments
-    address internal constant SABLIER_ADDRESS = address(0x3E435560fd0a03ddF70694b35b673C25c65aBB6C);
+    address internal constant LOCKUP_LINEAR_ADDRESS = address(0x3E435560fd0a03ddF70694b35b673C25c65aBB6C);
 
     // Test contracts
-    StreamCreator internal creator;
-    ISablierV2LockupLinear internal sablier;
+    LockupStreamCreator internal creator;
+    ISablierV2LockupLinear internal lockup;
     address internal user;
 
     function setUp() public {
         // Fork Ethereum Mainnet
         vm.createSelectFork({ blockNumber: 6_239_031, urlOrAlias: "sepolia" });
 
-        // Load the Sablier contract from Ethereum Mainnet
-        sablier = ISablierV2LockupLinear(SABLIER_ADDRESS);
+        // Load the lockup linear contract from Ethereum Mainnet
+        lockup = ISablierV2LockupLinear(LOCKUP_LINEAR_ADDRESS);
 
         // Deploy the stream creator contract
-        creator = new StreamCreator(sablier);
+        creator = new LockupStreamCreator(lockup);
 
         // Create a test user
         user = payable(makeAddr("User"));
@@ -39,9 +39,9 @@ contract StreamCreatorTest is Test {
         creator.DAI().approve({ spender: address(creator), value: 1337e18 });
     }
 
-    // Test that creating streams works by checking the stream ids
-    function test_CreateStream() public {
-        uint256 expectedStreamId = sablier.nextStreamId();
+    // Test that creating linear stream works by checking the stream ids
+    function test_CreateLockupLinearStream() public {
+        uint256 expectedStreamId = lockup.nextStreamId();
         uint256 actualStreamId = creator.createLockupLinearStream(1337e18);
         assertEq(actualStreamId, expectedStreamId);
     }

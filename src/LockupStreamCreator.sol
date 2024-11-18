@@ -6,14 +6,14 @@ import { ud60x18 } from "@prb/math/src/UD60x18.sol";
 import { ISablierV2LockupLinear } from "@sablier/v2-core/src/interfaces/ISablierV2LockupLinear.sol";
 import { Broker, LockupLinear } from "@sablier/v2-core/src/types/DataTypes.sol";
 
-/// @title StreamCreator
-/// @dev This contract allows users to create Sablier streams using the Lockup Linear contract.
-contract StreamCreator {
+/// @title LockupStreamCreator
+/// @dev This contract allows users to create Sablier lockup streams using the Lockup Linear contract.
+contract LockupStreamCreator {
     IERC20 public constant DAI = IERC20(0x68194a729C2450ad26072b3D33ADaCbcef39D574);
-    ISablierV2LockupLinear public immutable SABLIER;
+    ISablierV2LockupLinear public immutable LOCKUP;
 
-    constructor(ISablierV2LockupLinear sablier) {
-        SABLIER = sablier;
+    constructor(ISablierV2LockupLinear lockup) {
+        LOCKUP = lockup;
     }
 
     /// @dev Before calling this function, the user must first approve this contract to spend the tokens from the user's
@@ -22,8 +22,8 @@ contract StreamCreator {
         // Transfer the provided amount of DAI tokens to this contract
         DAI.transferFrom(msg.sender, address(this), totalAmount);
 
-        // Approve the Sablier contract to spend DAI
-        DAI.approve(address(SABLIER), totalAmount);
+        // Approve the Lockup contract to spend DAI
+        DAI.approve(address(LOCKUP), totalAmount);
 
         // Declare the params struct
         LockupLinear.CreateWithDurations memory params;
@@ -41,7 +41,7 @@ contract StreamCreator {
          });
         params.broker = Broker(address(0), ud60x18(0)); // Optional parameter for charging a fee
 
-        // Create the Sablier stream using a function that sets the start time to `block.timestamp`
-        streamId = SABLIER.createWithDurations(params);
+        // Create the lockup stream using a function that sets the start time to `block.timestamp`
+        streamId = LOCKUP.createWithDurations(params);
     }
 }
