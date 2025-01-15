@@ -2,25 +2,25 @@
 pragma solidity >=0.8.22;
 
 import { Test } from "forge-std/src/Test.sol";
-import { ISablierV2LockupLinear } from "@sablier/v2-core/src/interfaces/ISablierV2LockupLinear.sol";
+import { ISablierLockup } from "@sablier/lockup/src/interfaces/ISablierLockup.sol";
 
 import { LockupStreamCreator } from "../src/LockupStreamCreator.sol";
 
 contract LockupStreamCreatorTest is Test {
-    // Get the latest deployment address from the docs: https://docs.sablier.com/contracts/v2/deployments
-    address internal constant LOCKUP_LINEAR_ADDRESS = address(0x3E435560fd0a03ddF70694b35b673C25c65aBB6C);
+    // Get the latest deployment address from the docs: https://docs.sablier.com/guides/lockup/deployments
+    address internal constant LOCKUP_ADDRESS = address(0xC2Da366fD67423b500cDF4712BdB41d0995b0794);
 
     // Test contracts
     LockupStreamCreator internal creator;
-    ISablierV2LockupLinear internal lockup;
+    ISablierLockup internal lockup;
     address internal user;
 
     function setUp() public {
         // Fork Ethereum Mainnet
-        vm.createSelectFork({ blockNumber: 6_239_031, urlOrAlias: "sepolia" });
+        vm.createSelectFork({ blockNumber: 7_499_730, urlOrAlias: "sepolia" });
 
-        // Load the lockup linear contract from Ethereum Sepolia
-        lockup = ISablierV2LockupLinear(LOCKUP_LINEAR_ADDRESS);
+        // Load the lockup contract from Ethereum Sepolia
+        lockup = ISablierLockup(LOCKUP_ADDRESS);
 
         // Deploy the stream creator contract
         creator = new LockupStreamCreator(lockup);
@@ -29,7 +29,8 @@ contract LockupStreamCreatorTest is Test {
         user = payable(makeAddr("User"));
         vm.deal({ account: user, newBalance: 1 ether });
 
-        // Mint some DAI tokens to the test user, which will be pulled by the creator contract
+        // Mint some DAI tokens to the test user, which will be pulled by the creator contract. Make sure its more than
+        // unlockAmounts.start + unlockAmounts.cliff
         deal({ token: address(creator.DAI()), to: user, give: 1337e18 });
 
         // Make the test user the `msg.sender` in all following calls
@@ -41,7 +42,7 @@ contract LockupStreamCreatorTest is Test {
 
     function test_CreateLockupLinearStream() public {
         uint256 expectedStreamId = lockup.nextStreamId();
-        uint256 actualStreamId = creator.createLockupLinearStream(1337e18);
+        uint256 actualStreamId = creator.createLinearStream(1337e18);
 
         // Check that creating linear stream works by checking the stream id
         assertEq(actualStreamId, expectedStreamId);
