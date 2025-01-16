@@ -36,7 +36,6 @@
     "smart-contracts",
     "solidity",
     "token-streaming"
-
   ],
   "license": "GPL-3.0-or-later",
   "private": true,
