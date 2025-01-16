@@ -2,14 +2,12 @@
 pragma solidity >=0.8.22;
 
 import { Test } from "forge-std/src/Test.sol";
-import { ISablierLockup } from "@sablier/lockup/src/interfaces/ISablierLockup.sol";
 
 import { LockupStreamCreator } from "../src/LockupStreamCreator.sol";
 
 contract LockupStreamCreatorTest is Test {
     // Test contracts
     LockupStreamCreator internal creator;
-    ISablierLockup internal lockup;
     address internal user;
 
     function setUp() public {
@@ -18,9 +16,6 @@ contract LockupStreamCreatorTest is Test {
 
         // Deploy the stream creator contract
         creator = new LockupStreamCreator();
-
-        // Load the lockup contract
-        lockup = creator.LOCKUP();
 
         // Create a test user
         user = payable(makeAddr("User"));
@@ -38,7 +33,7 @@ contract LockupStreamCreatorTest is Test {
     }
 
     function test_CreateLockupLinearStream() public {
-        uint256 expectedStreamId = lockup.nextStreamId();
+        uint256 expectedStreamId = creator.LOCKUP().nextStreamId();
         // Create a linear stream. The amount provided must be more than `unlockAmounts.start + unlockAmounts.cliff`.
         uint256 actualStreamId = creator.createLinearStream(1337e18);
 

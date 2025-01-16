@@ -23,4 +23,4 @@
   wrap_comments = true
 
 [rpc_endpoints]
-  sepolia = "${RPC_URL_SEPOLIA}"
+  sepolia = "${SEPOLIA_RPC_URL}"
