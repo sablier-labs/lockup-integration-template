@@ -10,11 +10,9 @@ import { Broker, Lockup, LockupLinear } from "@sablier/lockup/src/types/DataType
 /// @dev This contract allows users to create Sablier lockup streams using the Lockup contract.
 contract LockupStreamCreator {
     IERC20 public constant DAI = IERC20(0x68194a729C2450ad26072b3D33ADaCbcef39D574);
-    ISablierLockup public immutable LOCKUP;
 
-    constructor(ISablierLockup lockup) {
-        LOCKUP = lockup;
-    }
+    // Get the latest deployment address from the docs: https://docs.sablier.com/guides/lockup/deployments
+    ISablierLockup public constant LOCKUP = ISablierLockup(0xC2Da366fD67423b500cDF4712BdB41d0995b0794);
 
     /// @dev Before calling this function, the user must first approve this contract to spend the tokens from the user's
     /// address.
@@ -41,8 +39,7 @@ contract LockupStreamCreator {
         // Declare the function parameters
         params.sender = msg.sender; // The sender will be able to cancel the stream
         params.recipient = address(0xcafe); // The recipient of the streamed tokens
-        params.totalAmount = uint128(totalAmount); // Total amount is the amount inclusive of unlock amounts as well as
-            // the fees
+        params.totalAmount = uint128(totalAmount); // Total amount includes unlock amounts as well as the fees, if any
         params.token = DAI; // The streaming token
         params.cancelable = true; // Whether the stream will be cancelable or not
         params.transferable = true; // Whether the stream will be transferable or not
