@@ -21,8 +21,10 @@
   },
   "homepage": "https://github.com/sablier-labs/lockup-integration-template#readme",
   "keywords": [
-    "token-streaming",
+    "asset-streaming",
     "blockchain",
+    "cryptoasset-streaming",
+    "cryptoassets",
     "cryptotoken-streaming",
     "cryptotokens",
     "ethereum",
@@ -34,6 +36,7 @@
     "smart-contracts",
     "solidity",
     "token-streaming"
+
   ],
   "license": "GPL-3.0-or-later",
   "private": true,
