@@ -32,7 +32,7 @@ contract LockupStreamCreatorTest is Test {
         creator.DAI().approve({ spender: address(creator), value: 1337e18 });
     }
 
-    function test_CreateLockupLinearStream() public {
+    function test_CreateLinearStream() public {
         uint256 expectedStreamId = creator.LOCKUP().nextStreamId();
         // Create a linear stream. The amount provided must be more than `unlockAmounts.start + unlockAmounts.cliff`.
         uint256 actualStreamId = creator.createLinearStream(1337e18);
