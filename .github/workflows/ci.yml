@@ -20,6 +20,8 @@ jobs:
 
       - name: "Install Foundry"
         uses: "foundry-rs/foundry-toolchain@v1"
+        with:
+          version: "v1.3.6"
 
       - name: "Install Bun"
         uses: "oven-sh/setup-bun@v1"
@@ -43,6 +45,8 @@ jobs:
 
       - name: "Install Foundry"
         uses: "foundry-rs/foundry-toolchain@v1"
+        with:
+          version: "v1.3.6"
 
       - name: "Install Bun"
         uses: "oven-sh/setup-bun@v1"
@@ -67,6 +71,8 @@ jobs:
 
       - name: "Install Foundry"
         uses: "foundry-rs/foundry-toolchain@v1"
+        with:
+          version: "v1.3.6"
 
       - name: "Install Bun"
         uses: "oven-sh/setup-bun@v1"
