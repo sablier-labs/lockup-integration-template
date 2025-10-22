@@ -12,7 +12,7 @@ contract LockupStreamCreatorTest is Test {
 
     function setUp() public {
         // Fork Ethereum Mainnet
-        vm.createSelectFork({ blockNumber: 7_499_730, urlOrAlias: "sepolia" });
+        vm.createSelectFork("mainnet");
 
         // Deploy the stream creator contract
         creator = new LockupStreamCreator();
@@ -34,8 +34,7 @@ contract LockupStreamCreatorTest is Test {
 
     function test_CreateLinearStream() public {
         uint256 expectedStreamId = creator.LOCKUP().nextStreamId();
-        // Create a linear stream. The amount provided must be more than `unlockAmounts.start + unlockAmounts.cliff`.
-        uint256 actualStreamId = creator.createLinearStream(1337e18);
+        uint256 actualStreamId = creator.createLinearStream();
 
         // Check that creating linear stream works by checking the stream id
         assertEq(actualStreamId, expectedStreamId);
