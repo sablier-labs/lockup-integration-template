@@ -8,9 +8,12 @@
   optimizer = true
   optimizer_runs = 5000
   out = "out"
-  solc = "0.8.26"
+  solc = "0.8.29"
   src = "src"
   test = "test"
+
+[lint]
+  lint_on_build = false
 
 [fmt]
   bracket_spacing = true
@@ -23,4 +26,4 @@
   wrap_comments = true
 
 [rpc_endpoints]
-  sepolia = "${SEPOLIA_RPC_URL}"
+  mainnet = "${MAINNET_RPC_URL}"
