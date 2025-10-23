@@ -11,7 +11,7 @@ contract LockupStreamCreatorTest is Test {
     address internal user;
 
     function setUp() public {
-        // Fork Ethereum Mainnet
+        // Fork Ethereum Mainnet at the latest block
         vm.createSelectFork("mainnet");
 
         // Deploy the stream creator contract
