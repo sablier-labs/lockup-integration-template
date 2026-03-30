@@ -11,7 +11,7 @@ import { LockupLinear } from "@sablier/lockup/src/types/LockupLinear.sol";
 contract LockupStreamCreator {
     // Mainnet addresses
     IERC20 public constant DAI = IERC20(0x6B175474E89094C44Da98b954EedeAC495271d0F);
-    ISablierLockup public constant LOCKUP = ISablierLockup(0xcF8ce57fa442ba50aCbC57147a62aD03873FfA73);
+    ISablierLockup public constant LOCKUP = ISablierLockup(0x93b37Bd5B6b278373217333Ac30D7E74c85fBDCB);
 
     /// @dev Before calling this function, the user must first approve this contract to spend the tokens from the user's
     /// address.
@@ -43,6 +43,11 @@ contract LockupStreamCreator {
          });
 
         // Create the Lockup stream with Linear shape, no cliff and start time as `block.timestamp`
-        streamId = LOCKUP.createWithDurationsLL(params, unlockAmounts, durations);
+        streamId = LOCKUP.createWithDurationsLL({
+            params: params,
+            unlockAmounts: unlockAmounts,
+            durations: durations,
+            granularity: 1 seconds
+        });
     }
 }
